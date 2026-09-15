@@ -194,7 +194,7 @@
             line-height: 1.9;
         }
 
-        /* 2. 義工資訊 */
+        /* 2. 義工訊息與查詢選單樣式 */
         .info-list {
             list-style: none;
         }
@@ -209,11 +209,49 @@
         .info-label {
             font-weight: 700;
             color: var(--primary-color);
-            min-width: 110px;
+            min-width: 130px;
         }
 
         .info-value {
             color: var(--text-main);
+        }
+
+        .select-box-container {
+            margin-bottom: 25px;
+            background-color: var(--accent-warm);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .select-label {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .custom-select {
+            width: 100%;
+            max-width: 320px;
+            padding: 10px 15px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+            outline: none;
+            background-color: #ffffff;
+            color: var(--text-main);
+        }
+
+        .personal-card {
+            display: none;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px dashed var(--primary-color);
+            margin-top: 15px;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
         /* 3. 行政中心排班 */
@@ -286,7 +324,7 @@
     <!-- 上方放大選項按鈕 -->
     <nav class="nav-tabs">
         <button class="tab-btn active" onclick="openTab(event, 'tab-meaning')">承擔法會意樂</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab-info')">義工資訊</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-info')">義工訊息</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-schedule')">行政中心排班</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-share')">善行分享</button>
     </nav>
@@ -316,31 +354,52 @@
         </section>
     </div>
 
-    <!-- 2. 義工資訊 -->
+    <!-- 2. 義工訊息 -->
     <div id="tab-info" class="tab-content">
         <section class="card">
-            <h2 class="section-title">義工資訊</h2>
-            <ul class="info-list">
+            <h2 class="section-title">義工訊息</h2>
+            
+            <!-- 全體義工共通訊息 -->
+            <ul class="info-list" style="margin-bottom: 25px;">
                 <li class="info-item">
                     <span class="info-label">義工提升：</span>
                     <span class="info-value">10/17(六) 上午 09:30 - 11:30</span>
-                </li>
-                <li class="info-item">
-                    <span class="info-label">護持日期：</span>
-                    <span class="info-value">10/30 - 11/2</span>
-                </li>
-                <li class="info-item">
-                    <span class="info-label">報到時間：</span>
-                    <span class="info-value">
-                        10/30 上午 07:00<br>
-                        10/31 ~ 11/2 上午 06:30
-                    </span>
                 </li>
                 <li class="info-item">
                     <span class="info-label">報到地點：</span>
                     <span class="info-value">行政中心 304</span>
                 </li>
             </ul>
+
+            <!-- 個人護持資訊查詢區塊 -->
+            <div class="select-box-container">
+                <label for="volunteer-select" class="select-label">🔍 選擇姓名查詢個人護持日期：</label>
+                <select id="volunteer-select" class="custom-select" onchange="showPersonalSchedule()">
+                    <option value="">-- 請選擇您的姓名 --</option>
+                    <!-- 您可在此自由增減義工姓名與對應的 value -->
+                    <option value="user1">張小明</option>
+                    <option value="user2">林大衛</option>
+                    <option value="user3">陳美玲</option>
+                </select>
+
+                <!-- 選擇姓名後顯示的個人卡片 -->
+                <div id="personal-info-box" class="personal-card">
+                    <ul class="info-list">
+                        <li class="info-item">
+                            <span class="info-label">義工姓名：</span>
+                            <span class="info-value" id="p-name" style="font-weight:700; color:var(--primary-color);"></span>
+                        </li>
+                        <li class="info-item">
+                            <span class="info-label">個人護持日期：</span>
+                            <span class="info-value" id="p-date" style="font-weight:700;"></span>
+                        </li>
+                        <li class="info-item">
+                            <span class="info-label">個人報到時間：</span>
+                            <span class="info-value" id="p-time"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </section>
     </div>
 
@@ -355,38 +414,59 @@
         </section>
     </div>
 
-    <!-- 4. 善行分享/回饋 -->
+    <!-- 4. 善行分享 -->
     <div id="tab-share" class="tab-content">
         <section class="card">
-            <h2 class="section-title">善行分享回饋</h2>
+            <h2 class="section-title">善行分享</h2>
             <div class="share-box">
                 <p class="share-desc">點滴善行，匯聚成河。歡迎點擊下方按鈕分享您在護持過程中的感動與學習：</p>
                 <!-- 請將下面的 href 替換為您的 Google 表單或問卷連結 -->
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfB5BC62QOZ0jiF7cpJC2odVD24Y2bjNpKUUfHThEfeV5b8-A/viewform?usp=preview" class="btn-share" target="_blank">✍️ 點我填寫善行分享</a>
+                <a href="https://forms.google.com" class="btn-share" target="_blank">✍️ 點我填寫善行分享</a>
             </div>
         </section>
     </div>
 
 </div>
 
-<!-- 控制分頁切換的 JavaScript -->
 <script>
+    // 1. 分頁切換控制
     function openTab(evt, tabName) {
-        // 1. 隱藏所有內容區塊
         const tabContents = document.getElementsByClassName("tab-content");
         for (let i = 0; i < tabContents.length; i++) {
             tabContents[i].classList.remove("active");
         }
 
-        // 2. 移除所有按鈕的 active 狀態
         const tabBtns = document.getElementsByClassName("tab-btn");
         for (let i = 0; i < tabBtns.length; i++) {
             tabBtns[i].classList.remove("active");
         }
 
-        // 3. 顯示目前選中的區塊，並套用 active 樣式至對應按鈕
         document.getElementById(tabName).classList.add("active");
         evt.currentTarget.classList.add("active");
+    }
+
+    // 2. 個人護持資料設定（您可在此修改或新增義工的個人資料）
+    const volunteerData = {
+        "user1": { name: "黃曲綸", date: "10/30(五) ~ 11/02(日) 全程", time: "10/30 上午 07:00 ，其餘每日 上午 06:30" },
+        "user2": { name: "鄭婷鈺", date: "10/30(五) ~ 11/02(日) 全程", time: "10/30 上午 07:00 ，其餘每日 上午 06:30" },
+        "user3": { name: "廖淑琴", date: "10/30(五) ~ 11/02(日) 全程", time: "10/30 上午 07:00，其餘每日 上午 06:30" }
+        "user4": { name: "周毓琇", date: "10/30(五) ~ 11/02(日) 全程", time: "10/30 上午 07:00，其餘每日 上午 06:30" } 
+        "user5": { name: "王怡文", date: "10/31(六) ~ 11/02(日) 3天", time: "10/31 上午 06:30，其餘每日 上午 06:30"  };
+
+    // 3. 個人護持資料查詢顯示邏輯
+    function showPersonalSchedule() {
+        const selectedValue = document.getElementById("volunteer-select").value;
+        const infoBox = document.getElementById("personal-info-box");
+
+        if (selectedValue && volunteerData[selectedValue]) {
+            const data = volunteerData[selectedValue];
+            document.getElementById("p-name").innerText = data.name;
+            document.getElementById("p-date").innerText = data.date;
+            document.getElementById("p-time").innerText = data.time;
+            infoBox.style.display = "block";
+        } else {
+            infoBox.style.display = "none";
+        }
     }
 </script>
 
