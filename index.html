@@ -58,7 +58,7 @@
             margin-top: 4px;
         }
 
-        /* 放大清晰的頂部選單 (Tabs) */
+        /* 頂部選單 (Tabs) */
         .nav-tabs {
             display: flex;
             justify-content: center;
@@ -72,13 +72,15 @@
             color: var(--secondary-color);
             border: 2px solid var(--border-color);
             padding: 14px 28px;
-            font-size: 1.25rem; /* 標題加大 */
-            font-weight: 700;   /* 標題加粗 */
+            font-size: 1.25rem;
+            font-weight: 700;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             letter-spacing: 1px;
+            outline: none;
+            user-select: none;
         }
 
         .tab-btn:hover {
@@ -87,7 +89,6 @@
             color: var(--primary-color);
         }
 
-        /* 選中狀態 */
         .tab-btn.active {
             background-color: var(--primary-color);
             color: #ffffff;
@@ -97,11 +98,11 @@
 
         /* 內容區塊 */
         .tab-content {
-            display: none; /* 預設隱藏所有區塊 */
+            display: none;
         }
 
         .tab-content.active {
-            display: block; /* 僅顯示被選中的區塊 */
+            display: block;
             animation: fadeIn 0.4s ease-in-out;
         }
 
@@ -141,7 +142,7 @@
             margin-right: 12px;
         }
 
-        /* 1. 承擔法會的意樂（醒目排版） */
+        /* 1. 承擔法會的意樂 */
         .meaning-card {
             background: linear-gradient(135deg, #ffffff 0%, var(--accent-warm) 100%);
             border: 2px solid #fde68a;
@@ -322,15 +323,15 @@
         <p>凝聚善念．歡喜承擔</p>
     </header>
 
-    <!-- 上方放大選項按鈕 -->
+    <!-- 頂部頁籤選項按鈕 -->
     <nav class="nav-tabs">
-        <button class="tab-btn active" onclick="openTab(event, 'tab-meaning')">承擔法會意樂</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab-info')">義工訊息</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab-schedule')">行政中心排班</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab-share')">善行分享</button>
+        <button type="button" class="tab-btn active" data-tab="tab-meaning">承擔法會意樂</button>
+        <button type="button" class="tab-btn" data-tab="tab-info">義工訊息</button>
+        <button type="button" class="tab-btn" data-tab="tab-schedule">行政中心排班</button>
+        <button type="button" class="tab-btn" data-tab="tab-share">善行分享</button>
     </nav>
 
-    <!-- 1. 主頁：承擔法會的意樂 (預設顯示) -->
+    <!-- 1. 承擔法會的意樂 (預設顯示) -->
     <div id="tab-meaning" class="tab-content active">
         <section class="card meaning-card">
             <h2 class="section-title">承擔法會的意樂</h2>
@@ -375,7 +376,7 @@
             <!-- 個人護持資訊查詢區塊 (10位義工空間) -->
             <div class="select-box-container">
                 <label for="volunteer-select" class="select-label">🔍 請點選姓名查詢個人護持日期：</label>
-                <select id="volunteer-select" class="custom-select" onchange="showPersonalSchedule()">
+                <select id="volunteer-select" class="custom-select">
                     <option value="">-- 請點選姓名 --</option>
                     <option value="user1">義工 01（請填姓名）</option>
                     <option value="user2">義工 02（請填姓名）</option>
@@ -427,7 +428,6 @@
             <h2 class="section-title">善行分享</h2>
             <div class="share-box">
                 <p class="share-desc">點滴善行，匯聚成河。歡迎點擊下方按鈕分享您在護持過程中的感動與學習：</p>
-                <!-- 請將下面的 href 替換為您的 Google 表單或問卷連結 -->
                 <a href="https://forms.google.com" class="btn-share" target="_blank">✍️ 點我填寫善行分享</a>
             </div>
         </section>
@@ -436,29 +436,34 @@
 </div>
 
 <script>
-    // 1. 分頁切換控制
-    function openTab(evt, tabName) {
-        const tabContents = document.getElementsByClassName("tab-content");
-        for (let i = 0; i < tabContents.length; i++) {
-            tabContents[i].classList.remove("active");
-        }
+document.addEventListener("DOMContentLoaded", function() {
 
-        const tabBtns = document.getElementsByClassName("tab-btn");
-        for (let i = 0; i < tabBtns.length; i++) {
-            tabBtns[i].classList.remove("active");
-        }
+    // 1. 頁籤切換控制邏輯
+    const tabBtns = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".tab-content");
 
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.classList.add("active");
-    }
+    tabBtns.forEach(function(btn) {
+        btn.addEventListener("click", function() {
+            const targetTabId = this.getAttribute("data-tab");
 
-    // 2. 10位義工的個人護持資料（可自行修改姓名與日期）
+            // 移除所有按鈕 active
+            tabBtns.forEach(b => b.classList.remove("active"));
+            // 隱藏所有內容
+            tabContents.forEach(c => c.classList.remove("active"));
+
+            // 啟動當前按鈕與內容
+            this.classList.add("active");
+            document.getElementById(targetTabId).classList.add("active");
+        });
+    });
+
+    // 2. 10 位義工的個人護持資料（可在此替換為真實姓名與日期）
     const volunteerData = {
-        "user1":  { name: "黃曲綸", date: "10/30(四) ~ 11/02(日) 全全程", time: "10/30 上午 07:00 / 其餘每日 上午 06:30" },
-        "user2":  { name: "鄭婷鈺", date: "10/30(四) ~ 10/31(五)",        time: "10/30 上午 07:00 / 10/31 上午 06:30" },
-        "user3":  { name: "廖淑琴", date: "11/01(六) ~ 11/02(日)",        time: "每日上午 06:30" },
-        "user4":  { name: "周毓琇", date: "10/30(四) 單日",               time: "上午 07:00" },
-        "user5":  { name: "謝喬安", date: "10/31(五) 單日",               time: "上午 06:30" },
+        "user1":  { name: "義工 01", date: "10/30(四) ~ 11/02(日) 全全程", time: "10/30 上午 07:00 / 其餘每日 上午 06:30" },
+        "user2":  { name: "義工 02", date: "10/30(四) ~ 10/31(五)",        time: "10/30 上午 07:00 / 10/31 上午 06:30" },
+        "user3":  { name: "義工 03", date: "11/01(六) ~ 11/02(日)",        time: "每日上午 06:30" },
+        "user4":  { name: "義工 04", date: "10/30(四) 單日",               time: "上午 07:00" },
+        "user5":  { name: "義工 05", date: "10/31(五) 單日",               time: "上午 06:30" },
         "user6":  { name: "義工 06", date: "11/01(六) 單日",               time: "上午 06:30" },
         "user7":  { name: "義工 07", date: "11/02(日) 單日",               time: "上午 06:30" },
         "user8":  { name: "義工 08", date: "10/30(四) ~ 11/01(六)",        time: "10/30 上午 07:00 / 其餘每日 上午 06:30" },
@@ -466,21 +471,25 @@
         "user10": { name: "義工 10", date: "10/30(四) ~ 11/02(日) 全全程", time: "10/30 上午 07:00 / 其餘每日 上午 06:30" }
     };
 
-    // 3. 點選姓名切換個人護持資料
-    function showPersonalSchedule() {
-        const selectedValue = document.getElementById("volunteer-select").value;
-        const infoBox = document.getElementById("personal-info-box");
+    // 3. 下拉選單點選切換邏輯
+    const selectElem = document.getElementById("volunteer-select");
+    const infoBox = document.getElementById("personal-info-box");
+
+    selectElem.addEventListener("change", function() {
+        const selectedValue = this.value;
 
         if (selectedValue && volunteerData[selectedValue]) {
             const data = volunteerData[selectedValue];
-            document.getElementById("p-name").innerText = data.name;
-            document.getElementById("p-date").innerText = data.date;
-            document.getElementById("p-time").innerText = data.time;
+            document.getElementById("p-name").textContent = data.name;
+            document.getElementById("p-date").textContent = data.date;
+            document.getElementById("p-time").textContent = data.time;
             infoBox.style.display = "block";
         } else {
             infoBox.style.display = "none";
         }
-    }
+    });
+
+});
 </script>
 
 </body>
