@@ -219,38 +219,39 @@
         .select-box-container {
             margin-bottom: 25px;
             background-color: var(--accent-warm);
-            padding: 18px;
+            padding: 22px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
         }
 
         .select-label {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--secondary-color);
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .custom-select {
             width: 100%;
-            max-width: 320px;
-            padding: 10px 15px;
+            max-width: 360px;
+            padding: 12px 16px;
             font-size: 1.1rem;
             border-radius: 8px;
             border: 2px solid var(--primary-color);
             outline: none;
             background-color: #ffffff;
             color: var(--text-main);
+            cursor: pointer;
         }
 
         .personal-card {
             display: none;
             background: #ffffff;
-            padding: 20px;
+            padding: 22px;
             border-radius: 12px;
             border: 2px dashed var(--primary-color);
-            margin-top: 15px;
+            margin-top: 18px;
             animation: fadeIn 0.3s ease-in-out;
         }
 
@@ -371,18 +372,24 @@
                 </li>
             </ul>
 
-            <!-- 個人護持資訊查詢區塊 -->
+            <!-- 個人護持資訊查詢區塊 (10位義工空間) -->
             <div class="select-box-container">
-                <label for="volunteer-select" class="select-label">🔍 選擇姓名查詢個人護持日期：</label>
+                <label for="volunteer-select" class="select-label">🔍 請點選姓名查詢個人護持日期：</label>
                 <select id="volunteer-select" class="custom-select" onchange="showPersonalSchedule()">
-                    <option value="">-- 請選擇您的姓名 --</option>
-                    <!-- 您可在此自由增減義工姓名與對應的 value -->
-                    <option value="user1">張小明</option>
-                    <option value="user2">林大衛</option>
-                    <option value="user3">陳美玲</option>
+                    <option value="">-- 請點選姓名 --</option>
+                    <option value="user1">義工 01（請填姓名）</option>
+                    <option value="user2">義工 02（請填姓名）</option>
+                    <option value="user3">義工 03（請填姓名）</option>
+                    <option value="user4">義工 04（請填姓名）</option>
+                    <option value="user5">義工 05（請填姓名）</option>
+                    <option value="user6">義工 06（請填姓名）</option>
+                    <option value="user7">義工 07（請填姓名）</option>
+                    <option value="user8">義工 08（請填姓名）</option>
+                    <option value="user9">義工 09（請填姓名）</option>
+                    <option value="user10">義工 10（請填姓名）</option>
                 </select>
 
-                <!-- 選擇姓名後顯示的個人卡片 -->
+                <!-- 點選姓名後顯示的個人護持資訊卡片 -->
                 <div id="personal-info-box" class="personal-card">
                     <ul class="info-list">
                         <li class="info-item">
@@ -445,15 +452,21 @@
         evt.currentTarget.classList.add("active");
     }
 
-    // 2. 個人護持資料設定（您可在此修改或新增義工的個人資料）
+    // 2. 10位義工的個人護持資料（可自行修改姓名與日期）
     const volunteerData = {
-        "user1": { name: "黃曲綸", date: "10/30(五) ~ 11/02(日) 全程", time: "10/30 上午 07:00 ，其餘每日 上午 06:30" },
-        "user2": { name: "鄭婷鈺", date: "10/30(五) ~ 11/02(日) 全程", time: "10/30 上午 07:00 ，其餘每日 上午 06:30" },
-        "user3": { name: "廖淑琴", date: "10/30(五) ~ 11/02(日) 全程", time: "10/30 上午 07:00，其餘每日 上午 06:30" }
-        "user4": { name: "周毓琇", date: "10/30(五) ~ 11/02(日) 全程", time: "10/30 上午 07:00，其餘每日 上午 06:30" } 
-        "user5": { name: "王怡文", date: "10/31(六) ~ 11/02(日) 3天", time: "10/31 上午 06:30，其餘每日 上午 06:30"  };
+        "user1":  { name: "黃曲綸", date: "10/30(四) ~ 11/02(日) 全全程", time: "10/30 上午 07:00 / 其餘每日 上午 06:30" },
+        "user2":  { name: "鄭婷鈺", date: "10/30(四) ~ 10/31(五)",        time: "10/30 上午 07:00 / 10/31 上午 06:30" },
+        "user3":  { name: "廖淑琴", date: "11/01(六) ~ 11/02(日)",        time: "每日上午 06:30" },
+        "user4":  { name: "周毓琇", date: "10/30(四) 單日",               time: "上午 07:00" },
+        "user5":  { name: "謝喬安", date: "10/31(五) 單日",               time: "上午 06:30" },
+        "user6":  { name: "義工 06", date: "11/01(六) 單日",               time: "上午 06:30" },
+        "user7":  { name: "義工 07", date: "11/02(日) 單日",               time: "上午 06:30" },
+        "user8":  { name: "義工 08", date: "10/30(四) ~ 11/01(六)",        time: "10/30 上午 07:00 / 其餘每日 上午 06:30" },
+        "user9":  { name: "義工 09", date: "10/31(五) ~ 11/02(日)",        time: "每日上午 06:30" },
+        "user10": { name: "義工 10", date: "10/30(四) ~ 11/02(日) 全全程", time: "10/30 上午 07:00 / 其餘每日 上午 06:30" }
+    };
 
-    // 3. 個人護持資料查詢顯示邏輯
+    // 3. 點選姓名切換個人護持資料
     function showPersonalSchedule() {
         const selectedValue = document.getElementById("volunteer-select").value;
         const infoBox = document.getElementById("personal-info-box");
