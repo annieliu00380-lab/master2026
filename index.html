@@ -71,8 +71,8 @@
             background-color: #ffffff;
             color: var(--secondary-color);
             border: 2px solid var(--border-color);
-            padding: 14px 28px;
-            font-size: 1.25rem;
+            padding: 14px 24px;
+            font-size: 1.2rem;
             font-weight: 700;
             border-radius: 12px;
             cursor: pointer;
@@ -255,7 +255,110 @@
             animation: fadeIn 0.3s ease-in-out;
         }
 
-        /* 3. 行政中心排班 */
+        /* 筆記區塊樣式 */
+        .notes-area {
+            width: 100%;
+            height: 150px;
+            padding: 14px;
+            font-size: 1.05rem;
+            font-family: inherit;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            outline: none;
+            resize: vertical;
+            background-color: #ffffff;
+            margin-bottom: 12px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .notes-area:focus {
+            border-color: var(--primary-color);
+        }
+
+        .btn-note-save {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-right: 8px;
+        }
+
+        .btn-note-save:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-note-clear {
+            background-color: #e5e7eb;
+            color: var(--text-muted);
+            border: none;
+            padding: 10px 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-note-clear:hover {
+            background-color: #d1d5db;
+        }
+
+        .note-status {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 0.95rem;
+            color: #16a34a;
+            font-weight: 500;
+        }
+
+        /* 3. 大會行程表格 */
+        .agenda-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .agenda-table th, .agenda-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .agenda-table th {
+            background-color: var(--accent-warm);
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .agenda-table td {
+            font-size: 1.05rem;
+        }
+
+        .agenda-time {
+            font-weight: 700;
+            color: var(--primary-color);
+            width: 140px;
+            white-space: nowrap;
+        }
+
+        .agenda-tag {
+            display: inline-block;
+            background-color: #fef3c7;
+            color: #b45309;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        /* 4. 行政中心排班 */
         .schedule-notice {
             background-color: var(--accent-warm);
             padding: 18px;
@@ -281,7 +384,7 @@
             background-color: var(--primary-hover);
         }
 
-        /* 4. 善行分享 */
+        /* 5. 善行分享 */
         .share-box {
             text-align: center;
             padding: 15px 0;
@@ -326,6 +429,7 @@
     <nav class="nav-tabs">
         <button class="tab-btn active" onclick="openTab(event, 'tab-meaning')">承擔法會意樂</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-info')">義工訊息</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-agenda')">大會行程</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-schedule')">行政中心排班</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-share')">善行分享</button>
     </nav>
@@ -355,7 +459,7 @@
         </section>
     </div>
 
-    <!-- 2. 義工訊息 -->
+    <!-- 2. 義工訊息與個人筆記區 -->
     <div id="tab-info" class="tab-content">
         <section class="card">
             <h2 class="section-title">義工訊息</h2>
@@ -364,10 +468,10 @@
             <ul class="info-list" style="margin-bottom: 25px;">
                 <li class="info-item">
                     <span class="info-label">義工提升：</span>
-                    <span class="info-value">10/17(六) 上午 09:30 - 11:30,地點:台北學苑</span>
+                    <span class="info-value">10/17(六) 上午 09:30 - 11:30</span>
                 </li>
                 <li class="info-item">
-                    <span class="info-label">林口體育館報到地點：</span>
+                    <span class="info-label">報到地點：</span>
                     <span class="info-value">行政中心 304</span>
                 </li>
             </ul>
@@ -412,10 +516,74 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- 🔒 個人專屬筆記區塊 -->
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed var(--border-color);">
+                <h3 style="color: var(--secondary-color); font-size: 1.25rem; margin-bottom: 10px;">📝 個人專屬備忘筆記 (僅自己可見)</h3>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px;">在此記錄您的備忘事項或心得，系統會自動儲存於此裝置/瀏覽器中。</p>
+                <textarea id="my-personal-note" class="notes-area" placeholder="請在此輸入您的備忘筆記（例如：攜帶物品、私下聯繫事項...）"></textarea>
+                <div>
+                    <button class="btn-note-save" onclick="saveNote()">💾 儲存筆記</button>
+                    <button class="btn-note-clear" onclick="clearNote()">🗑️ 清除</button>
+                    <span id="note-status" class="note-status"></span>
+                </div>
+            </div>
+
         </section>
     </div>
 
-    <!-- 3. 行政中心排班 -->
+    <!-- 3. 大會行程 (新增區塊) -->
+    <div id="tab-agenda" class="tab-content">
+        <section class="card">
+            <h2 class="section-title">大會行程表</h2>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">以下為憶師恩法會正行大會預定流程（請依現場廣播宣佈為準）：</p>
+            
+            <table class="agenda-table">
+                <thead>
+                    <tr>
+                        <th class="agenda-time">時間</th>
+                        <th>行程內容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="agenda-time">08:00 - 08:40</td>
+                        <td>義工前行與進場入場安頓</td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-time">08:40 - 09:00</td>
+                        <td>大會前行提心與緣念唱誦 <span class="agenda-tag">前行</span></td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-time">09:00 - 10:15</td>
+                        <td>開幕、住持法師開示與大會主題影片播放</td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-time">10:15 - 11:30</td>
+                        <td>讚頌獻供與僧團學習成果展示</td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-time">11:30 - 13:30</td>
+                        <td>午齋、休息與義工輪班交接 <span class="agenda-tag">午時</span></td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-time">13:30 - 15:30</td>
+                        <td><strong>真如老師開示連線與法音宣流</strong> <span class="agenda-tag">重點</span></td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-time">15:30 - 16:30</td>
+                        <td>供燈發願、總結迴向與法會圓滿結行</td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-time">16:30 - 17:30</td>
+                        <td>義工善後場地復原與善行總結</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- 4. 行政中心排班 -->
     <div id="tab-schedule" class="tab-content">
         <section class="card">
             <h2 class="section-title">行政中心排班</h2>
@@ -426,7 +594,7 @@
         </section>
     </div>
 
-    <!-- 4. 善行分享 -->
+    <!-- 5. 善行分享 -->
     <div id="tab-share" class="tab-content">
         <section class="card">
             <h2 class="section-title">善行分享</h2>
@@ -440,6 +608,14 @@
 </div>
 
 <script>
+    // 頁面載入時自動讀取已儲存的個人筆記
+    window.onload = function() {
+        const savedNote = localStorage.getItem("volunteer_personal_note");
+        if (savedNote) {
+            document.getElementById("my-personal-note").value = savedNote;
+        }
+    };
+
     // 1. 分頁切換控制
     function openTab(evt, tabName) {
         const tabContents = document.getElementsByClassName("tab-content");
@@ -488,6 +664,31 @@
             infoBox.style.display = "block";
         } else {
             infoBox.style.display = "none";
+        }
+    }
+
+    // 4. 個人筆記功能 (Local Base)
+    function saveNote() {
+        const noteContent = document.getElementById("my-personal-note").value;
+        localStorage.setItem("volunteer_personal_note", noteContent);
+        
+        const statusEl = document.getElementById("note-status");
+        statusEl.innerText = "✓ 已成功儲存！";
+        setTimeout(() => {
+            statusEl.innerText = "";
+        }, 2500);
+    }
+
+    function clearNote() {
+        if (confirm("確定要清除您寫的筆記嗎？")) {
+            document.getElementById("my-personal-note").value = "";
+            localStorage.removeItem("volunteer_personal_note");
+            
+            const statusEl = document.getElementById("note-status");
+            statusEl.innerText = "已清除筆記";
+            setTimeout(() => {
+                statusEl.innerText = "";
+            }, 2500);
         }
     }
 </script>
