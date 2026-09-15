@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>法會義工資訊平台</title>
-    <!-- 引入Google字體增添溫暖質感 -->
+    <!-- 引入Google字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -17,6 +17,7 @@
             --text-muted: #57534e;
             --accent-warm: #fffbeb;
             --border-color: #fef3c7;
+            --highlight-bg: #fef08a;
         }
 
         * {
@@ -38,124 +39,202 @@
             margin: 0 auto;
         }
 
-        /* 頁面標題 */
+        /* 頂部主標題 */
         header {
             text-align: center;
-            padding: 30px 0 20px;
-            margin-bottom: 25px;
+            padding: 20px 0 15px;
         }
 
         header h1 {
             color: var(--secondary-color);
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         header p {
             color: var(--primary-color);
-            font-size: 1.05rem;
-            margin-top: 5px;
+            font-size: 1.1rem;
+            margin-top: 4px;
         }
 
-        /* 通用卡片樣式 */
+        /* 放大清晰的頂部選單 (Tabs) */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: #ffffff;
+            color: var(--secondary-color);
+            border: 2px solid var(--border-color);
+            padding: 14px 28px;
+            font-size: 1.25rem; /* 標題加大 */
+            font-weight: 700;   /* 標題加粗 */
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            letter-spacing: 1px;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--accent-warm);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* 選中狀態 */
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
+        }
+
+        /* 內容區塊 */
+        .tab-content {
+            display: none; /* 預設隱藏所有區塊 */
+        }
+
+        .tab-content.active {
+            display: block; /* 僅顯示被選中的區塊 */
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 卡片通用樣式 */
         .card {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 28px;
+            padding: 32px;
             margin-bottom: 25px;
             box-shadow: 0 4px 20px rgba(217, 119, 6, 0.08);
             border: 1px solid var(--border-color);
         }
 
         .section-title {
-            font-size: 1.35rem;
+            font-size: 1.5rem;
             color: var(--secondary-color);
-            margin-bottom: 18px;
+            margin-bottom: 22px;
             display: flex;
             align-items: center;
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
+            padding-bottom: 12px;
+            font-weight: 700;
         }
 
         .section-title::before {
             content: "";
             display: inline-block;
             width: 8px;
-            height: 20px;
+            height: 24px;
             background-color: var(--primary-color);
             border-radius: 4px;
-            margin-right: 10px;
+            margin-right: 12px;
         }
 
-        /* 區塊 1：承擔法會的意義（醒目設計） */
+        /* 1. 承擔法會的意樂（醒目排版） */
         .meaning-card {
             background: linear-gradient(135deg, #ffffff 0%, var(--accent-warm) 100%);
             border: 2px solid #fde68a;
         }
 
+        .meaning-title {
+            color: var(--secondary-color);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            background-color: #fef3c7;
+            padding: 10px 18px;
+            border-radius: 8px;
+            letter-spacing: 1px;
+        }
+
         .meaning-content {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: var(--text-main);
         }
 
-        .meaning-content p {
-            margin-bottom: 12px;
+        .meaning-item {
+            margin-bottom: 22px;
         }
 
-        .meaning-content strong {
+        .meaning-item h3 {
             color: var(--primary-color);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .highlight-text {
+            background-color: var(--highlight-bg);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            color: #854d0e;
         }
 
         .quote-box {
             background-color: #ffffff;
-            border-left: 4px solid var(--primary-color);
-            padding: 15px 20px;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
-            font-style: italic;
+            border-left: 5px solid var(--primary-color);
+            padding: 18px 22px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
             color: var(--secondary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            line-height: 1.9;
         }
 
-        /* 區塊 2：義工資訊 */
+        /* 2. 義工資訊 */
         .info-list {
             list-style: none;
         }
 
         .info-item {
             display: flex;
-            margin-bottom: 12px;
-            font-size: 1.05rem;
+            margin-bottom: 16px;
+            font-size: 1.15rem;
+            align-items: flex-start;
         }
 
         .info-label {
             font-weight: 700;
             color: var(--primary-color);
-            min-width: 100px;
+            min-width: 110px;
         }
 
         .info-value {
             color: var(--text-main);
         }
 
-        /* 區塊 3：行政中心排班 */
+        /* 3. 行政中心排班 */
         .schedule-notice {
             background-color: var(--accent-warm);
-            padding: 15px;
-            border-radius: 8px;
+            padding: 18px;
+            border-radius: 10px;
             color: var(--text-muted);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
         }
 
         .btn-schedule {
             display: inline-block;
             background-color: var(--primary-color);
             color: #ffffff;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 700;
+            font-size: 1.05rem;
             transition: background 0.3s;
         }
 
@@ -163,34 +242,35 @@
             background-color: var(--primary-hover);
         }
 
-        /* 區塊 4：善行分享 */
+        /* 4. 善行分享 */
         .share-box {
             text-align: center;
-            padding: 10px 0;
+            padding: 15px 0;
         }
 
         .share-desc {
             color: var(--text-muted);
-            margin-bottom: 20px;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
         }
 
         .btn-share {
             display: inline-block;
             background-color: #f59e0b;
             color: white;
-            padding: 14px 32px;
+            padding: 16px 36px;
             border-radius: 30px;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
             transition: all 0.3s ease;
         }
 
         .btn-share:hover {
             background-color: #d97706;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 6px 18px rgba(245, 158, 11, 0.4);
         }
     </style>
 </head>
@@ -203,64 +283,108 @@
         <p>凝聚善念．歡喜承擔</p>
     </header>
 
-    <!-- 1. 承擔法會的意義 -->
-    <section class="card meaning-card">
-        <h2 class="section-title">承擔法會的意義</h2>
-        <div class="meaning-content">
-            <p><strong>【積聚福德，圓滿自他】</strong></p>
-            <p>承擔法會不僅僅是一份義工服務，更是一段將佛法落實在生活中的修行歷程。透過廣結善緣、發心護持，我們能夠在實踐中淨化心靈，體會與大眾同心同願的歡喜。</p>
-            
-            <div class="quote-box">
-                「每一次的付出，都是在為自己與眾生種下善因；每一次的配合，都是調伏自我、增長智慧的契機。」
-            </div>
+    <!-- 上方放大選項按鈕 -->
+    <nav class="nav-tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-meaning')">承擔法會意樂</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-info')">義工資訊</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-schedule')">行政中心排班</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-share')">善行分享</button>
+    </nav>
 
-            <p>※ 請在此處直接貼上您 Word 中的文字，排版已設定好清晰大方的字距與行距。</p>
-        </div>
-    </section>
+    <!-- 1. 主頁：承擔法會的意樂 (預設顯示) -->
+    <div id="tab-meaning" class="tab-content active">
+        <section class="card meaning-card">
+            <h2 class="section-title">承擔法會的意樂</h2>
+            <div class="meaning-content">
+                <div class="meaning-title">幹部承擔之法藥：「歡喜力」即是真精進</div>
+                
+                <div class="meaning-item">
+                    <h3>以「歡喜心」替代疲憊與壓力</h3>
+                    <p>籌備法會涉及極為繁瑣的行政溝通、便當準備、交通指揮與接待等事務。法師特別引述清塵法師引用的經論開示，指出<span class="highlight-text">「精進」的真實定義是「對於善法歡喜踴躍地去行」，其中「歡喜力」是核心關鍵</span>。</p>
+                </div>
+
+                <div class="meaning-item">
+                    <h3>積聚無量資量與廣開方便</h3>
+                    <p>籌備過程中的每一天忙碌，都如同金貓因緣般，未來將收穫無以倫比的廣大善業資量。法師鼓勵幹部要廣開方便門，積極接納並協助想前來參加的同學（包括中輟多年的同修），讓更多人得以種下殊勝善根。</p>
+                </div>
+
+                <div class="quote-box">
+                    <strong>近況與善業迴向：</strong><br>
+                    法師分享目前帶領清淨青年團於加拿大愛德華王子島（P島）向老師請法，並帶來老師身體健康恢復、已順利回到P島的吉祥消息。法師勉勵幹部將所有護持籌備的善業，悉數迴向善知識身體健康、長久住世、常轉法輪，並作為自己來生得暇滿人生、生生世世隨鳳依教奉行的堅實資量。
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- 2. 義工資訊 -->
-    <section class="card">
-        <h2 class="section-title">義工資訊</h2>
-        <ul class="info-list">
-            <li class="info-item">
-                <span class="info-label">護持日期：</span>
-                <span class="info-value">10/30 ~ 11/2</span>
-            </li>
-            <li class="info-item">
-                <span class="info-label">報到時間：</span>
-                <span class="info-value">
-                    10/30 上午 07:00<br>
-                    10/31 ~ 11/2 上午 06:30
-                </span>
-            </li>
-            <li class="info-item">
-                <span class="info-label">報到地點：</span>
-                <span class="info-value">行政中心 304</span>
-            </li>
-        </ul>
-    </section>
+    <div id="tab-info" class="tab-content">
+        <section class="card">
+            <h2 class="section-title">義工資訊</h2>
+            <ul class="info-list">
+                <li class="info-item">
+                    <span class="info-label">護持日期：</span>
+                    <span class="info-value">10/30 - 11/2</span>
+                </li>
+                <li class="info-item">
+                    <span class="info-label">報到時間：</span>
+                    <span class="info-value">
+                        10/30 上午 07:00<br>
+                        10/31 ~ 11/2 上午 06:30
+                    </span>
+                </li>
+                <li class="info-item">
+                    <span class="info-label">報到地點：</span>
+                    <span class="info-value">行政中心 304</span>
+                </li>
+            </ul>
+        </section>
+    </div>
 
     <!-- 3. 行政中心排班 -->
-    <section class="card">
-        <h2 class="section-title">行政中心排班</h2>
-        <div class="schedule-notice">
-            請各位義工依排班時間準時報到，如有調班需求請提前告知組長。
-        </div>
-        <!-- 您可將 href 改為實際的排班表連結 (如 Google Sheet) -->
-        <a href="#" class="btn-schedule" target="_blank">查看詳細排班表 →</a>
-    </section>
+    <div id="tab-schedule" class="tab-content">
+        <section class="card">
+            <h2 class="section-title">行政中心排班</h2>
+            <div class="schedule-notice">
+                請各位義工依排班時間準時報到，如有調班需求請提前告知組長。
+            </div>
+            <a href="#" class="btn-schedule" target="_blank">查看詳細排班表 →</a>
+        </section>
+    </div>
 
     <!-- 4. 善行分享 -->
-    <section class="card">
-        <h2 class="section-title">善行分享</h2>
-        <div class="share-box">
-            <p class="share-desc">點滴善行，匯聚成河。歡迎分享您在護持過程中的感動與學習：</p>
-            <!-- 請將下面的 href 替換為您的 Google 表單或問券連結 -->
-            <a href="https://forms.gle/bEKaRYr1g6MAAM5t6" class="btn-share" target="_blank">✍️ 點我填寫善行分享</a>
-        </div>
-    </section>
+    <div id="tab-share" class="tab-content">
+        <section class="card">
+            <h2 class="section-title">善行分享</h2>
+            <div class="share-box">
+                <p class="share-desc">點滴善行，匯聚成河。歡迎點擊下方按鈕分享您在護持過程中的感動與學習：</p>
+                <!-- 請將下面的 href 替換為您的 Google 表單或問卷連結 -->
+                <a href="https://forms.google.com" class="btn-share" target="_blank">✍️ 點我填寫善行分享</a>
+            </div>
+        </section>
+    </div>
 
 </div>
+
+<!-- 控制分頁切換的 JavaScript -->
+<script>
+    function openTab(evt, tabName) {
+        // 1. 隱藏所有內容區塊
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
+
+        // 2. 移除所有按鈕的 active 狀態
+        const tabBtns = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove("active");
+        }
+
+        // 3. 顯示目前選中的區塊，並套用 active 樣式至對應按鈕
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
 
 </body>
 </html>
