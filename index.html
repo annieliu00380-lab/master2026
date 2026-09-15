@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法會義工資訊平台</title>
+    <!-- 引入Google字體增添溫暖質感 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fdfbf7;
+            --card-bg: #ffffff;
+            --primary-color: #d97706; /* 溫暖橘 */
+            --primary-hover: #b45309;
+            --secondary-color: #78350f; /* 深木棕 */
+            --text-main: #292524;
+            --text-muted: #57534e;
+            --accent-warm: #fffbeb;
+            --border-color: #fef3c7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding: 20px 15px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* 頁面標題 */
+        header {
+            text-align: center;
+            padding: 30px 0 20px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            color: var(--primary-color);
+            font-size: 1.05rem;
+            margin-top: 5px;
+        }
+
+        /* 通用卡片樣式 */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(217, 119, 6, 0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            color: var(--secondary-color);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .section-title::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 20px;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        /* 區塊 1：承擔法會的意義（醒目設計） */
+        .meaning-card {
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-warm) 100%);
+            border: 2px solid #fde68a;
+        }
+
+        .meaning-content {
+            font-size: 1.05rem;
+            color: var(--text-main);
+        }
+
+        .meaning-content p {
+            margin-bottom: 12px;
+        }
+
+        .meaning-content strong {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .quote-box {
+            background-color: #ffffff;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--secondary-color);
+        }
+
+        /* 區塊 2：義工資訊 */
+        .info-list {
+            list-style: none;
+        }
+
+        .info-item {
+            display: flex;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .info-label {
+            font-weight: 700;
+            color: var(--primary-color);
+            min-width: 100px;
+        }
+
+        .info-value {
+            color: var(--text-main);
+        }
+
+        /* 區塊 3：行政中心排班 */
+        .schedule-notice {
+            background-color: var(--accent-warm);
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .btn-schedule {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .btn-schedule:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* 區塊 4：善行分享 */
+        .share-box {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .share-desc {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .btn-share {
+            display: inline-block;
+            background-color: #f59e0b;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-share:hover {
+            background-color: #d97706;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>法會護持與義工服務</h1>
+        <p>凝聚善念．歡喜承擔</p>
+    </header>
+
+    <!-- 1. 承擔法會的意義 -->
+    <section class="card meaning-card">
+        <h2 class="section-title">承擔法會的意義</h2>
+        <div class="meaning-content">
+            <p><strong>【積聚福德，圓滿自他】</strong></p>
+            <p>承擔法會不僅僅是一份義工服務，更是一段將佛法落實在生活中的修行歷程。透過廣結善緣、發心護持，我們能夠在實踐中淨化心靈，體會與大眾同心同願的歡喜。</p>
+            
+            <div class="quote-box">
+                「每一次的付出，都是在為自己與眾生種下善因；每一次的配合，都是調伏自我、增長智慧的契機。」
+            </div>
+
+            <p>※ 請在此處直接貼上您 Word 中的文字，排版已設定好清晰大方的字距與行距。</p>
+        </div>
+    </section>
+
+    <!-- 2. 義工資訊 -->
+    <section class="card">
+        <h2 class="section-title">義工資訊</h2>
+        <ul class="info-list">
+            <li class="info-item">
+                <span class="info-label">護持日期：</span>
+                <span class="info-value">10/30 ~ 11/2</span>
+            </li>
+            <li class="info-item">
+                <span class="info-label">報到時間：</span>
+                <span class="info-value">
+                    10/30 上午 07:00<br>
+                    10/31 ~ 11/2 上午 06:30
+                </span>
+            </li>
+            <li class="info-item">
+                <span class="info-label">報到地點：</span>
+                <span class="info-value">行政中心 304</span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 3. 行政中心排班 -->
+    <section class="card">
+        <h2 class="section-title">行政中心排班</h2>
+        <div class="schedule-notice">
+            請各位義工依排班時間準時報到，如有調班需求請提前告知組長。
+        </div>
+        <!-- 您可將 href 改為實際的排班表連結 (如 Google Sheet) -->
+        <a href="#" class="btn-schedule" target="_blank">查看詳細排班表 →</a>
+    </section>
+
+    <!-- 4. 善行分享 -->
+    <section class="card">
+        <h2 class="section-title">善行分享</h2>
+        <div class="share-box">
+            <p class="share-desc">點滴善行，匯聚成河。歡迎分享您在護持過程中的感動與學習：</p>
+            <!-- 請將下面的 href 替換為您的 Google 表單或問券連結 -->
+            <a href="https://forms.gle/bEKaRYr1g6MAAM5t6" class="btn-share" target="_blank">✍️ 點我填寫善行分享</a>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
